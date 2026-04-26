@@ -1,10 +1,10 @@
 ---
 title: "Reporte de Reproducibilidad"
-subtitle: "Artículo: [título del artículo a reproducir]
- <br><a href='https://github.com/data-soc/template-repro' target='_blank' ><i class='bi bi-github'></i></a>" # reemplazar con dirección al repositorio del proyecto
+subtitle: "Artículo: Desafiando la segregación de género en el mercado laboral: Factores que inciden en las inserciones laborales atípicas en términos de género en Chile
+ <br><a href='https://github.com/RenatoDeLuca/ej-repro-grupo-6' target='_blank' ><i class='bi bi-github'></i></a>" # reemplazar con dirección al repositorio del proyecto
 author:
-  - name: Autor 1
-    email: mail@mail.com 
+  - name: Renato De Luca
+    email: renato.deluca@ug.uchile.cl
     affiliations:
       - ref: 1
   - name: Autor 2
@@ -15,6 +15,10 @@ author:
     email: mail@mail.com 
     affiliations:
       - ref: 1 
+  - name: Autor 4
+    email: mail@mail.com 
+    affiliations:
+      - ref: 1
 affiliations: 
   - id: 1
     name: Departamento de Sociología, Universidad de Chile
@@ -52,13 +56,15 @@ format:
     geometry: margin=2.5cm
 editor_options: 
   chunk_output_type: console
-# bibliography: "input/bib/mi_coleccion.bib"
-csl: "input/bib/apa6.csl"
+bibliography: "input/bib/biblio.bib"
+csl: "input/bib/apa7.csl"
 ---
 
 
 
 # Selección de artículo/reporte
+
+Para la realización del primer reporte de reproducibilidad en el márgen del curso electivo de Ciencia Social Abierta, se selecciona el trabajo de @palma_desafiando_2025
 
 - Referencia del artículo seleccionado
 - Breve resumen del artículo seleccionado
