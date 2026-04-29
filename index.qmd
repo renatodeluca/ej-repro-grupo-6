@@ -92,22 +92,41 @@ Seleccionar un resultado específico del artículo (por ejemplo, una tabla de re
 
 ### Procesamiento
 
+#### Carga de paquetes
+En primer lugar, se cargan los paquetes `dplyr`, `haven`,`readr` y `ggplot2` en su versión utilizada para el ejercicio de reproducción. Esto es posible gracias al paquete `renv`, el cual permite gestionar las dependencias de R y asegurar que se utilicen las mismas versiones de los paquetes que se usaron originalmente para el análisis.
 
+Si es la primera vez que se ejecuta el código, es necesario inicializar el entorno de `renv` con `renv::init()`. En sesiones posteriores, se debe ejecutar `renv::restore()` para restaurar el entorno con las versiones de los paquetes utilizadas originalmente. 
 
 ```{r}
-install.packages("pacman")
-pacman::p_load(dplyr, haven, ggplot2)
+install.packages("renv")
+# Ejecutar solo la primera vez para inicializas
+renv::init() 
 
-proc_casen22 <- select(casen22, id_vivienda, sexo, n_ocupados, o1, o2, o3, o9a, s5, nucleo_ajustado, pco2_a, pco2_b, pco2)
-#guardar como csv
-write.csv(proc_casen22, "input/proc_casen22.csv", row.names = FALSE)
+# Ejecutar en sesiones siguientes para restaurar el entorno
+renv::restore()
 
-
+# Cargar librerías necesarias
+library(dplyr)
+library(haven)
+library(ggplot2)
+library(readr)
 ```
 
+#### Carga de base de datos
+A continuación, se carga la base de datos original utilizada en @palma_desafiando_2025, la cual se encuentra clickeando [aquí](https://zenodo.org/records/19892581/files/casen_2022.RData), el link directo a Zenodo, donde se aloja la base, o visitando la página oficial de [CASEN](https://www.ministeriodesarrollosocial.gob.cl/casen/casen_2022.php)
 
+. Para reproducir el resultado seleccionado, se seleccionan las variables necesarias utilizando la función `select()` del paquete `dplyr`.
+```{r}
 
+# Aumentar timeout para la descarga (pues es una base pesada)
+options(timeout = 900)
 
+# Cargar datos desde internet
+load(url("https://zenodo.org/records/19892581/files/casen_2022.RData"))
+
+# Seleccionar variables necesarias para reproducir el resultado
+proc_casen22 <- select(casen_2022, id_vivienda, sexo, n_ocupados, s5, nucleo_ajustado, pco2, pco2_b, activ, folio, nucleo)
+```
 
 - Incluye el código utilizado para procesar los datos, junto con una explicación de cada paso. 
 
