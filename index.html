@@ -183,14 +183,6 @@ div.csl-indent {
   <li><a href="#resultado-a-reproducir" id="toc-resultado-a-reproducir" class="nav-link" data-scroll-target="#resultado-a-reproducir"><span class="header-section-number">3.1</span> Resultado a reproducir</a></li>
   <li><a href="#proceso-de-reproducción" id="toc-proceso-de-reproducción" class="nav-link" data-scroll-target="#proceso-de-reproducción"><span class="header-section-number">3.2</span> Proceso de reproducción</a></li>
   </ul></li>
-  <li><a href="#conclusiones" id="toc-conclusiones" class="nav-link" data-scroll-target="#conclusiones"><span class="header-section-number">4</span> Conclusiones</a></li>
-  <li><a href="#recomendaciones" id="toc-recomendaciones" class="nav-link" data-scroll-target="#recomendaciones"><span class="header-section-number">5</span> Recomendaciones</a></li>
-  <li><a href="#referencias" id="toc-referencias" class="nav-link" data-scroll-target="#referencias"><span class="header-section-number">6</span> Referencias</a></li>
-  <li><a href="#apéndice" id="toc-apéndice" class="nav-link" data-scroll-target="#apéndice"><span class="header-section-number">7</span> Apéndice</a>
-  <ul class="collapse">
-  <li><a href="#material-suplementario" id="toc-material-suplementario" class="nav-link" data-scroll-target="#material-suplementario"><span class="header-section-number">7.1</span> Material suplementario</a></li>
-  <li><a href="#código" id="toc-código" class="nav-link" data-scroll-target="#código"><span class="header-section-number">7.2</span> Código</a></li>
-  </ul></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Otros formatos</h2><ul><li><a href="index.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
 </div>
@@ -238,7 +230,7 @@ div.csl-indent {
 <h3 data-number="3.2.1" class="anchored" data-anchor-id="procesamiento"><span class="header-section-number">3.2.1</span> Procesamiento</h3>
 <section id="carga-de-paquetes" class="level4">
 <h4 class="anchored" data-anchor-id="carga-de-paquetes">Carga de paquetes</h4>
-<p>En primer lugar, se cargan los paquetes <code>here</code>, <code>dplyr</code>, <code>haven</code>,<code>readr</code> y <code>ggplot2</code> en su versión utilizada para el ejercicio de reproducción. Esto es posible gracias al paquete <code>renv</code>, el cual permite gestionar las dependencias de R y asegurar que se utilicen las mismas versiones de los paquetes que se usaron originalmente para el análisis.</p>
+<p>En primer lugar, se cargan los paquetes <code>dplyr</code>, <code>haven</code>,<code>readr</code> y <code>ggplot2</code> en su versión utilizada para el ejercicio de reproducción. Esto es posible gracias al paquete <code>renv</code>, el cual permite gestionar las dependencias de R y asegurar que se utilicen las mismas versiones de los paquetes que se usaron originalmente para el análisis.</p>
 <p>Si es la primera vez que se ejecuta el código, es necesario inicializar el entorno de <code>renv</code> con <code>renv::init()</code>. En sesiones posteriores, se debe ejecutar <code>renv::restore()</code> para restaurar el entorno con las versiones de los paquetes utilizadas originalmente.</p>
 <div class="cell">
 <details class="code-fold">
@@ -247,16 +239,15 @@ div.csl-indent {
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejecutar solo la primera vez para inicializas</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>renv<span class="sc">::</span><span class="fu">init</span>() </span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejecutar en sesiones siguientes para restaurar el entorno</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Ejecutar en sesiones siguientes para restaurar el entorno</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>renv<span class="sc">::</span><span class="fu">restore</span>()</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Cargar librerías necesarias</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(haven)</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Cargar librerías necesarias</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(haven)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 </section>
@@ -267,7 +258,7 @@ div.csl-indent {
 <div class="cell">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Se carga base de datos CASEN</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Se carga base de datos CASEN desde local</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co">#load("input/data/original/casen_2022.RData")</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Seleccionar variables necesarias para reproducir el resultado</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">#proc_casen22 &lt;- casen_2022 %&gt;% </span></span>
@@ -277,53 +268,17 @@ div.csl-indent {
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a> <span class="co"># here("input", "data", "proc", "proc_casen22.rds"), compress = FALSE)</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
-<ul>
-<li><p>Incluye el código utilizado para procesar los datos, junto con una explicación de cada paso.</p></li>
-<li><p>Los datos originales deben ser llamados desde input/data/original, el código de procesamiento se debe incluir en este mismo archivo (reporte-repro.qmd).</p></li>
-</ul>
+
 </section>
 </section>
-<section id="reproducción" class="level3" data-number="3.2.2">
-<h3 data-number="3.2.2" class="anchored" data-anchor-id="reproducción"><span class="header-section-number">3.2.2</span> Reproducción</h3>
-<ul>
-<li>Generación de tabla o figura a reproducir.</li>
-</ul>
-</section>
-</section>
-</section>
-<section id="conclusiones" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> Conclusiones</h1>
-<p>Basándose en el análisis realizado, escriban una conclusión sobre el nivel de reproducibilidad del artículo seleccionado.</p>
-</section>
-<section id="recomendaciones" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> Recomendaciones</h1>
-<p>Recomendaciones para mejorar la reproducibilidad del artículo, si es necesario.</p>
-</section>
-<section id="referencias" class="level1" data-number="6">
-<h1 data-number="6"><span class="header-section-number">6</span> Referencias</h1>
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
-<div id="ref-palma_desafiando_2025" class="csl-entry" role="listitem">
-Palma, J., Olivi, A., &amp; Asenjo, A. (2025). Desafiando La Segregación de Género En El Mercado Laboral: <span>Factores</span> Que Inciden En Las Inserciones Laborales Atípicas En Términos de Género En <span>Chile</span>. <em>Revista de Sociología</em>, <em>40</em>(1). <a href="https://doi.org/10.5354/0719-529X.2025.79736">https://doi.org/10.5354/0719-529X.2025.79736</a>
-</div>
-</div>
-</section>
-<section id="apéndice" class="level1" data-number="7">
-<h1 data-number="7"><span class="header-section-number">7</span> Apéndice</h1>
-<section id="material-suplementario" class="level2" data-number="7.1">
-<h2 data-number="7.1" class="anchored" data-anchor-id="material-suplementario"><span class="header-section-number">7.1</span> Material suplementario</h2>
-<ul>
-<li>Incluyan aquí detalles metodológicos adicionales, en caso de ser necesario</li>
-</ul>
-</section>
-<section id="código" class="level2" data-number="7.2">
-<h2 data-number="7.2" class="anchored" data-anchor-id="código"><span class="header-section-number">7.2</span> Código</h2>
-<ul>
-<li>Incluir acá el código original, en caso de estar disponible.</li>
-</ul>
 </section>
 </section>
 
-</main>
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">Referencias</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
+<div id="ref-palma_desafiando_2025" class="csl-entry" role="listitem">
+Palma, J., Olivi, A., &amp; Asenjo, A. (2025). Desafiando La Segregación de Género En El Mercado Laboral: <span>Factores</span> Que Inciden En Las Inserciones Laborales Atípicas En Términos de Género En <span>Chile</span>. <em>Revista de Sociología</em>, <em>40</em>(1). <a href="https://doi.org/10.5354/0719-529X.2025.79736">https://doi.org/10.5354/0719-529X.2025.79736</a>
+</div>
+</div></section></div></main>
 <!-- /main column -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
