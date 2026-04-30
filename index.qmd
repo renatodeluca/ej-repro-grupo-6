@@ -143,4 +143,28 @@ A continuación, se carga la base de datos original utilizada en @palma_desafian
 
 ```
 
-#
+Ya teniendo la base de datos procesada en **input/data/proc** podemos reproducir la **Figura 1.**
+
+#### Figura 1
+```{r}
+proc_casen22 <- readRDS("input/data/proc/proc_casen22.rds")
+
+
+
+
+```
+
+
+
+
+
+#### Figura 5
+
+
+```{r}
+
+proc_casen22 <- readRDS("input/data/proc/proc_casen22.rds")
+
+
+
+```
