@@ -162,11 +162,7 @@ Ya teniendo la base de datos procesada en *input/data/proc* podemos reproducir l
 
 #### Figura 2
 
-En primer lugar, se seleccionan
-
-```{r}
-
-```
+En primer lugar, para reproducir la **Figura 2**, se seleccionan las variables "rama1" "sexo" y "activ". La variable "rama1" corresponde a una clasificación de las ramas de actividad económica en base a la CIIU. Por otro lado, la variable "activ" indica la condición de actividad de la persona, es decir, si se encuentra ocupada (1), desocupada (2) o inactiva (3). Para esta figura, se seleccionan únicamente las personas ocupadas.
 
 ```{r}
 datos <- readRDS("input/data/proc/proc_casen22.rds")
@@ -174,7 +170,7 @@ datos <- readRDS("input/data/proc/proc_casen22.rds")
 datos <- datos %>%
   filter(activ == 1)
 
-datos <- datos %>% select(rama1, sexo, activ, pco2) 
+datos <- datos %>% select(rama1, sexo, activ) 
 
 
 #recodificación falta la categoría total!! y ver como se pueden ordenar
