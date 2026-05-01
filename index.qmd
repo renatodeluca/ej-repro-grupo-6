@@ -157,8 +157,101 @@ Ya teniendo la base de datos procesada en *input/data/proc* podemos reproducir l
 
 #### Figura 1
 ```{r}
-proc_casen22 <- readRDS("input/data/proc/proc_casen22.rds")
+datos <- readRDS("input/data/proc/proc_casen22.rds")
+#Seleccionar variables y filtrar
+datos <- datos %>%
+  filter(activ == 1)
 
+datos <- datos %>% select(rama1, sexo, activ, n_ocupados, o1, o2, o3, o9a, s5, nucleo_ajustado, pco2_a, pco2_b, pco2) 
+
+
+#recodificación falta la categoría total!! y ver como se pueden ordenar
+datos <- datos %>% mutate(ocupacion = case_when(
+  rama1 == 1  ~ "Agricultura, ganadería, silvicultura y pesca",
+  rama1 == 2  ~ "Explotación de minas y canteras",
+  rama1 == 3 ~ "Industrias Manufactureras",			
+  rama1 == 4 ~ "Suministro de Electricidad y Gas",			
+  rama1 == 5 ~ "Suministro de Agua; gestión de residuos",			
+  rama1 == 6 ~ "Construcción",		
+  rama1 == 7 ~ "Comercio al Por Mayor y al Por Menor; Reparación de Vehículos",			
+  rama1 == 8 ~ "Transporte y Almacenamiento",			
+  rama1 == 9 ~ "Actividades de Alojamiento y de Servicio de Comidas",			
+  rama1 == 10 ~ "Información y Comunicaciones",			
+  rama1 == 11 ~ "Actividades Financieras y de Seguros",			
+  rama1 == 12 ~ "Actividades Inmobiliarias",			
+  rama1 == 13 ~ "Actividades Profesionales, Científicas y Técnicas",			
+  rama1 == 14 ~ "Actividades de Servicios Administrativos y de Apoyo",			
+  rama1 == 15 ~ "Administración Pública y Defensa",			
+  rama1 == 16 ~ "Enseñanza",			
+  rama1 == 17 ~ "Actividades de Atención de la Salud Humana y de Asistencia Social",			
+  rama1 == 18 ~ "Actividades Artísticas, de Entretenimiento y Recreativas",			
+  rama1 == 19 ~ "Otras Actividades de Servicios",			
+  rama1 == 20 ~ "Actividades de los Hogares como Empleadores",			
+  rama1 == 21 ~ "Actividades de Organizaciones y Órganos Extraterritoriales",			
+  rama1 == 98 ~ NA,			
+  rama1 == 99 ~ NA			
+))
+
+datos <- datos %>%
+  filter(!is.na(ocupacion))
+datos <- datos %>%
+  filter(!is.na(activ))
+
+datos <- datos %>% mutate(sexo = case_when(
+  sexo == 1 ~ "Hombre",
+  sexo == 2 ~ "Mujer",
+  
+))
+
+#porcentaje de ocupación por sexo
+graf1 <- datos %>%
+  group_by(ocupacion, sexo) %>%
+  summarise(n = n(), .groups = "drop") %>%
+  group_by(ocupacion) %>%
+  mutate(porcentaje = n / sum(n) * 100)
+
+#grafico
+ggplot(graf1, aes(x = porcentaje, y = reorder(ocupacion, porcentaje), fill = sexo)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  geom_text(
+    aes(label = paste0(round(porcentaje, 1), "%")),
+    position = position_dodge(width = 0.8),  # mismo width que el geom_bar
+    hjust = -0.1,                             # etiqueta justo al final de la barra
+    size = 3
+  ) +
+  scale_fill_manual(values = c("Hombre" = "#404040", "Mujer" = "#A0A0A0")) +
+  scale_x_continuous(
+    labels = scales::percent_format(scale = 1),
+    limits = c(0, 110)  # límite mayor a 100 para que quepan las etiquetas
+  ) +
+  labs(x = NULL, y = NULL, fill = NULL) +
+  theme_minimal() +
+  theme(
+    legend.position = "bottom",
+    panel.grid.major.y = element_blank(),
+    panel.grid.minor = element_blank(),
+    axis.text.y = element_text(size = 9),
+    axis.text.x = element_text(size = 9)
+  )
+  
+  
+  labs(
+    title = "Comparativa por Género",
+    x = "Categoría (Variable Bla)",
+    y = "Valor / Cantidad",
+    fill = "Género"
+  ) +
+  scale_fill_manual(values = c("Hombre" = "#404040", "Mujer" = "#A0A0A0")) +
+  scale_x_continuous(labels = scales::percent_format(scale = 1), limits = c(0, 100)) +
+  labs(x = NULL, y = NULL, fill = NULL) +
+  theme_minimal() +
+  theme(
+    legend.position = "bottom",
+    panel.grid.major.y = element_blank(),
+    panel.grid.minor = element_blank(),
+    axis.text.y = element_text(size = 9),
+    axis.text.x = element_text(size = 9)
+  )
 
 
 
