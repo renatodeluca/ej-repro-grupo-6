@@ -356,7 +356,7 @@ fig5_data <- ocupados |>
 
 print(fig5_data)
 
-# ── 7. GRÁFICO FIGURA 5 ───────────────────────────────────────────────────────
+#grafico figura 5
 p_fig5 <- ggplot(fig5_data, aes(x = x_grupo, y = pct)) +
   geom_col(fill = "#595959", width = 0.4) +
   geom_text(aes(label = sprintf("%.1f%%", pct)), vjust = -0.5, size = 3.5) +
@@ -392,7 +392,7 @@ p_fig5 <- ggplot(fig5_data, aes(x = x_grupo, y = pct)) +
   )
 
 print(p_fig5)
-
+#guardar en output/graphs
 ggsave(
   filename = "output/graphs/figura5_palmaetal2025.png",
   plot = p_fig5,
