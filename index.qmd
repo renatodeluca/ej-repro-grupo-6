@@ -386,15 +386,11 @@ p_fig5 <- ggplot(fig5_data, aes(x = x_grupo, y = pct)) +
 print(p_fig5)
 
 ggsave(
-  filename = "figura5_palmaetal2025.png",
+  filename = "output/graphs/figura5_palmaetal2025.png",
   plot = p_fig5,
   width = 8,
   height = 6,
   dpi = 300,
-  bg = "white")
-
-
-
-
-
+  bg = "white"
+)
 ```
