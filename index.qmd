@@ -148,13 +148,13 @@ A continuación, se carga la base de datos original utilizada en @palma_desafian
 
 ```{r}
 #Se carga base de datos CASEN desde local
+
 #load("input/data/original/casen_2022.RData")
 # Seleccionar variables necesarias para reproducir el resultado
-#proc_casen22 <- casen_2022 %>% 
-  #select(sexo, pco2, activ, folio, nucleo, edad, rama1_sub_rev4, rama4_sub_rev4)
+#proc_casen22 <- casen_2022 %>% select(sexo, pco2, activ, folio, nucleo, edad, rama1, rama4,expr)
 #Se guarda base de datos procesada
 #saveRDS(proc_casen22, 
- # here("input", "data", "proc", "proc_casen22.rds"), compress = FALSE)
+  #here("input", "data", "proc", "proc_casen22.rds"), compress = FALSE)
 
 ```
 
@@ -167,7 +167,7 @@ datos <- readRDS("input/data/proc/proc_casen22.rds")
 datos <- datos %>%
   filter(activ == 1)
 
-datos <- datos %>% select(rama1, sexo, activ, n_ocupados, o1, o2, o3, o9a, s5, nucleo_ajustado, pco2_a, pco2_b, pco2) 
+datos <- datos %>% select(rama1, sexo, activ, pco2) 
 
 
 #recodificación falta la categoría total!! y ver como se pueden ordenar
@@ -266,16 +266,134 @@ ggplot(graf1, aes(x = porcentaje, y = ocupacion, fill = sexo)) +
 
 ```
 
-
-
-
-
 #### Figura 5
 
 
 ```{r}
 
 proc_casen22 <- readRDS("input/data/proc/proc_casen22.rds")
+
+#seleccion y limpieza
+proc_casen22 <-proc_casen22 |>
+  select(sexo, pco2, activ, folio, nucleo, edad, rama4, expr) |>
+  mutate(
+    rama4 = as.numeric(rama4),
+    rama4 = if_else(rama4 %in% c(-99, -88, -66), NA_real_, rama4)
+  ) |>
+  filter(
+    !is.na(sexo),
+    !is.na(edad),
+    !is.na(pco2))
+
+#crear hijos menores de 5 años
+proc_casen22 <- proc_casen22 |>
+  mutate(
+    hijo = as.integer(pco2 %in% c(4, 5, 6)),
+    hijos5 = as.integer(hijo == 1 & edad <= 5)) |>
+  group_by(folio, nucleo) |>
+  mutate(n_hijos5 = sum(hijos5, na.rm = TRUE)) |>
+  ungroup() |>
+  mutate(
+    cat_hijos5 = factor(
+      case_when(
+        n_hijos5 == 0 ~ "Ninguno",
+        n_hijos5 == 1 ~ "Uno",
+        n_hijos5 >= 2 ~ "Dos o más",
+        TRUE ~ NA_character_
+      ),
+      levels = c("Ninguno", "Uno", "Dos o más")))
+
+#submuestra ocupados (mayor de 15 años y activos)
+ocupados <- proc_casen22 |>
+  filter(activ == 1, edad >= 15, !is.na(rama4))
+
+# indice de masculinizacion o feminizacion por rama
+fem_rama4 <- ocupados |>
+  group_by(rama4) |>
+  summarise(
+    n_mujeres = sum(expr[sexo == 2], na.rm = TRUE),
+    n_total   = sum(expr, na.rm = TRUE),
+    pct_mujer = 100 * n_mujeres / n_total,
+    .groups   = "drop"
+  ) |>
+  mutate(
+    tipo_rama = case_when(
+      pct_mujer >= 70 ~ "Feminizada",
+      pct_mujer <= 30 ~ "Masculinizada",
+      TRUE ~ "Mixta"))
+
+#insercion atipica
+ocupados <- ocupados |>
+  left_join(select(fem_rama4, rama4, tipo_rama), by = "rama4") |>
+  mutate(
+    atipico = as.integer(
+      (sexo == 2 & tipo_rama == "Masculinizada") |
+      (sexo == 1 & tipo_rama == "Feminizada")
+    ),
+    sexo_label = factor(sexo, levels = c(1, 2), labels = c("Hombre", "Mujer")))
+
+# datos para recrear figura 5
+fig5_data <- ocupados |>
+  group_by(sexo_label, cat_hijos5) |>
+  summarise(
+    pct = 100 * sum(expr[atipico == 1], na.rm = TRUE) / sum(expr, na.rm = TRUE),
+    .groups = "drop"
+  ) |>
+  mutate(
+    x_grupo = factor(
+      paste(sexo_label, cat_hijos5, sep = "_"),
+      levels = c(
+        "Hombre_Ninguno", "Hombre_Uno", "Hombre_Dos o más",
+        "Mujer_Ninguno", "Mujer_Uno", "Mujer_Dos o más")))
+
+print(fig5_data)
+
+# ── 7. GRÁFICO FIGURA 5 ───────────────────────────────────────────────────────
+p_fig5 <- ggplot(fig5_data, aes(x = x_grupo, y = pct)) +
+  geom_col(fill = "#595959", width = 0.4) +
+  geom_text(aes(label = sprintf("%.1f%%", pct)), vjust = -0.5, size = 3.5) +
+  scale_x_discrete(labels = c(
+    "Hombre_Ninguno" = "Ninguno",
+    "Hombre_Uno" = "Uno Hombre",
+    "Hombre_Dos o más" = "Dos o más",
+    "Mujer_Ninguno" = "Ninguno",
+    "Mujer_Uno" = "Uno Mujer",
+    "Mujer_Dos o más" = "Dos o más"
+  )) +
+  scale_y_continuous(
+    limits = c(0, 14),
+    breaks = seq(0, 12, by = 2),
+    labels = label_percent(scale = 1)
+  ) +
+  annotate("text", x = 2, y = -1.8, label = "Hombre", size = 3.8) +
+  annotate("text", x = 5, y = -1.8, label = "Mujer", size = 3.8) +
+  coord_cartesian(clip = "off") +
+  labs(
+    title = "Figura 5. Personas de 15 años y más ocupadas en empleos atípicos según sexo y número de\nhijos menores de 5 años",
+    x = NULL,
+    y = NULL,
+    caption = "Fuente: Procesamientos propios, Encuesta CASEN 2022"
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(
+    plot.title = element_text(size = 10, hjust = 0),
+    plot.caption = element_text(face = "italic", hjust = 0),
+    plot.margin = margin(10, 10, 35, 10),
+    panel.grid.major.x = element_blank(),
+    panel.grid.minor = element_blank()
+  )
+
+print(p_fig5)
+
+ggsave(
+  filename = "figura5_palmaetal2025.png",
+  plot = p_fig5,
+  width = 8,
+  height = 6,
+  dpi = 300,
+  bg = "white")
+
+
 
 
 
