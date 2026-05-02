@@ -481,11 +481,12 @@ ggsave(
 
 # Conclusiones
 
-Basándose en el análisis realizado, escriban una conclusión sobre el nivel de reproducibilidad del artículo seleccionado.
+El artículo de @palma se construye a partir de una base de datos de acceso público, lo que representa un punto positivo en términos de reproducibilidad, dado que cualquier investigador puede acceder a la misma fuente. Además, cuenta con una metodología detallada que facilita la comprensión del proceso analítico. Sin embargo, la ausencia del código utilizado dificulta la replicación exacta de las figuras y sus resultados. Si bien fue posible replicarlas, los valores obtenidos no son idénticos a los del artículo original, diferencia que podría explicarse por algún procedimiento de procesamiento de la base de datos que no queda explicitado en el texto y que, por tanto, fue omitido durante el ejercicio de replicación. Por ello, se enfatiza la importancia de publicar de forma abierta los códigos empleados en cada investigación, como una práctica fundamental para garantizar una reproducibilidad plena. Ya que en algunos casos cambian los análisis, por ejemplo …
+
 
 # Recomendaciones
 
-Recomendaciones para mejorar la reproducibilidad del artículo, si es necesario.
+Si bien el ejercicio de replicabilidad resultó más nutritivo al desarrollar los códigos autónomamente, en materia de reproducibilidad lo ideal sería que los artículos proporcionaran tanto los códigos utilizados para el procesamiento de datos y la construcción de figuras, como la metodología detallada que el artículo ya incluye. Al proporcionar el código se agiliza el proceso de replicación, permitiendo que personas con menor manejo en herramientas como R puedan reproducir el estudio también.
 
 # Referencias
 
