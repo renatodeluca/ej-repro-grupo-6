@@ -472,7 +472,9 @@ El artículo de @palma_desafiando_2025 se construye a partir de una base de dato
 
 # Recomendaciones
 
-Si bien el ejercicio de replicabilidad resultó más nutritivo al desarrollar los códigos autónomamente, en materia de reproducibilidad lo ideal sería que los artículos proporcionaran tanto los códigos utilizados para el procesamiento de datos y la construcción de figuras, como la metodología detallada que el artículo ya incluye. Al proporcionar el código se agiliza el proceso de replicación, permitiendo que personas con menor manejo en herramientas como R puedan reproducir el estudio también.
+Si bien el ejercicio de replicabilidad resultó más nutritivo al desarrollar los códigos autónomamente, en materia de reproducibilidad lo ideal sería que los artículos proporcionaran tanto los códigos utilizados para el procesamiento de datos como los de la construcción de figuras, pues proporcionar el código agiliza el proceso de replicación, permitiendo que personas con menor manejo en softwares estadísticos puedan reproducir el estudio también. Además, la publicación de los códigos junto a los datos y la metodología detallada fortalece la transparencia y la confianza en la investigación, al permitir que otros investigadores puedan verificar y validar los resultados de manera más eficiente. Sin embargo, el texto de @palma_desafiando_2025 es explícito en cuanto a la metodología utilizada, lo que facilita la comprensión del proceso analítico. Aun así, la falta de código dificulta la reproducción exacta de las figuras y sus resultados, lo que resalta la importancia de publicar de forma abierta los códigos empleados en cada investigación para garantizar una reproducibilidad plena.
+
+Por lo tanto, se recomienda que los artículos científicos incluyan no solo los datos utilizados sino también los códigos empleados para el análisis y la generación de resultados, como una práctica estándar para promover la reproducibilidad y la transparencia en la investigación científica. Esto no solo beneficiaría a la comunidad científica, sino que también contribuiría a la democratización del conocimiento, permitiendo que un público más amplio pueda acceder y comprender los procesos detrás de los hallazgos científicos.
 
 # Referencias
 
@@ -480,10 +482,6 @@ Si bien el ejercicio de replicabilidad resultó más nutritivo al desarrollar lo
 :::
 
 # Apéndice
-
-## Material suplementario
-
-- Incluyan aquí detalles metodológicos adicionales, en caso de ser necesario
 
 ## Código
 
